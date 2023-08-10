@@ -1,7 +1,6 @@
 const db = require("../../models/index");
 const { getUsers, findUserByEmail, createUser, findUserById } = require("../../services/user_service");
-const { validateUsers } = require("../../utils/requestValidations");
-const { Sequelize } = db
+const { validateUsers } = require("../../utils/request_validations");
 const Users = db.users;
 
 
@@ -27,7 +26,7 @@ exports.createUser = async (req, res) => {
 
     try {
         newUser = await createUser({ email, firstName, lastName, password, isAdmin: false, isModerator: false })
-        res.status(200).send(newUser);
+        return res.status(200).send(newUser);
     } catch (error) {
         return res.status(400).send(error.message);
     }

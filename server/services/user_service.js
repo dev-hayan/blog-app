@@ -1,4 +1,3 @@
-const { hashSync } = require("bcrypt");
 const db = require("../models/index");
 const { func } = require("joi");
 const Users = db.users;

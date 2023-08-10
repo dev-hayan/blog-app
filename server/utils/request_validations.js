@@ -11,5 +11,12 @@ function validateUsers(user) {
 
     return schema.validate(user);
 }
+function validatePosts(post) {
+    const schema = Joi.object({
+        content: Joi.string().min(1).required(),
+        userId: Joi.number().required(),
+    })
+    return schema.validate(post);
+}
 
-module.exports.validateUsers = validateUsers
+module.exports = { validateUsers, validatePosts }

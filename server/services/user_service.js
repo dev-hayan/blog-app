@@ -2,9 +2,7 @@ const db = require("../models/index");
 const { func } = require("joi");
 const Users = db.users;
 
-async function createUser(user) {
-    return await Users.create(user)
-}
+const createUser = async user => await Users.create(user)
 
 async function getUsers() {
     return await Users.findAll();

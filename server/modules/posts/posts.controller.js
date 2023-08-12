@@ -1,25 +1,10 @@
-const { getAllPosts, createPosts, findPostById } = require("../../services/post_service");
-const db = require("../../models/index");
+const { createPosts, findPostById } = require("../../services/post_service");
 const { validatePosts } = require("../../utils/request_validations");
-const Posts = db.posts;
-const cloudinary = require('cloudinary');
 const { findUserById } = require("../../services/user_service");
-const { addAttachment, addMultiAttachments, deleteAttachments } = require("../../services/attachment_service");
-const multer = require("multer");
-require('dotenv').config();
+const { addMultiAttachments, deleteAttachments } = require("../../services/attachment_service");
+const { cloudinary } = require("../../config/cloudinary.config")
+const db = require("../../models/index");
 
-
-
-cloudinary.config({
-    cloud_name: process.env.CLOUD_NAME,
-    api_key: process.env.API_KEY,
-    api_secret: process.env.API_SECRET,
-});
-
-exports.uploader = multer({
-    storage: multer.diskStorage({}),
-    limits: { fileSize: 500000 }
-});
 
 
 exports.createPost = async (req, res) => {
@@ -55,7 +40,7 @@ exports.createPost = async (req, res) => {
 exports.deletePost = async (req, res) => {
     const post = await findPostById(req.params.id);
     console.log(post)
-    if (!post) return res.status(400).send("Post no found");
+    if (!post) return res.status(400).send("Post not found");
 
     try {
         await deleteAttachments(post.id, "post")
@@ -65,6 +50,48 @@ exports.deletePost = async (req, res) => {
         return res.status(400).send(error.message);
     }
 
+}
+
+exports.likePost = async (req, res) => {
+    let post = await findPostById(req.params.id);
+    console.log(post)
+    if (!post) return res.status(400).send("Post not found");
+
+    try {
+        post.likes += 1;
+        post = await post.save();
+        return res.status(200).send(post)
+    } catch (error) {
+        return res.status(400).send(error.message);
+    }
+}
+
+exports.reportPost = async (req, res) => {
+    let post = await findPostById(req.params.id);
+    console.log(post)
+    if (!post) return res.status(400).send("Post not found");
+
+    try {
+        post.reports += 1;
+        post = await post.save();
+        return res.status(200).send(post)
+    } catch (error) {
+        return res.status(400).send(error.message);
+    }
+}
+
+exports.approvePost = async (req, res) => {
+    let post = await findPostById(req.params.id);
+    console.log(post)
+    if (!post) return res.status(400).send("Post not found");
+
+    try {
+        post.isApproved = true;
+        post = await post.save();
+        return res.status(200).send(post)
+    } catch (error) {
+        return res.status(400).send(error.message);
+    }
 }
 
 

@@ -13,6 +13,7 @@ exports.createComment = async (req, res) => {
     const { content, userId, postId, parentCommentId = null } = req.body;
     const { files } = req;
     const user = await findUserById(userId);
+    
     if (!user)
         return res.status(404).send("User not found.");
     const post = await findPostById(postId);

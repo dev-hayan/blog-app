@@ -13,10 +13,29 @@ function validateUsers(user) {
 }
 function validatePosts(post) {
     const schema = Joi.object({
-        content: Joi.string().min(1).required(),
+        content: Joi.string().required(),
         userId: Joi.number().required(),
     })
     return schema.validate(post);
 }
 
-module.exports = { validateUsers, validatePosts }
+function valiadateComment(comment) {
+    const schema = Joi.object({
+        content: Joi.string().required(),
+        userId: Joi.number().required(),
+        postId: Joi.number().required(),
+        parentCommentId: Joi.number(),
+    })
+    return schema.validate(comment);
+}
+
+function valiadateSuggestion(suggestion) {
+    const schema = Joi.object({
+        content: Joi.string().required(),
+        userId: Joi.number().required(),
+        postId: Joi.number().required(),
+    })
+    return schema.validate(suggestion);
+}
+
+module.exports = { validateUsers, validatePosts, valiadateComment, valiadateSuggestion }

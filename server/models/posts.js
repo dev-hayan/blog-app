@@ -4,6 +4,11 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.TEXT,
             allowNull: false,
         },
+        isApproved: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+            allowNull: false,
+        },
         likes: {
             type: DataTypes.INTEGER,
             defaultValue: 0,
@@ -15,15 +20,18 @@ module.exports = (sequelize, DataTypes) => {
     }, { timestamps: false });
 
     posts.associate = function (models) {
-        posts.belongsTo(models.users)
-        posts.hasMany(models.comments, { as: 'Comments', foreignKey: 'postId' });
-        posts.hasMany(models.suggestions, { as: 'PostSuggestions', foreignKey: 'postId' });
+        posts.belongsTo(models.users, {
+            foreignKey: 'userId',
+            onDelete: 'CASCADE'
+        })
+        posts.hasMany(models.comments, { as: 'Comments', foreignKey: 'postId', onDelete: 'CASCADE' });
+        posts.hasMany(models.suggestions, { as: 'PostSuggestions', foreignKey: 'postId', onDelete: 'CASCADE' });
         posts.hasMany(models.attachments, {
             foreignKey: 'attachmenTableId',
             constraints: false,
             scope: {
                 commentableType: 'post'
-            }
+            },
         });
     };
 

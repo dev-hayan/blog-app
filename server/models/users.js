@@ -66,10 +66,16 @@ module.exports = (sequelize, DataTypes) => {
         users.hasMany(models.posts, {
             foreignKey: 'userId',
             as: 'Posts',
+            onDelete: 'CASCADE'
         });
         users.hasMany(models.suggestions, {
             foreignKey: 'userId',
             as: 'UserSuggestions',
+            onDelete: 'CASCADE'
+        });
+        users.hasMany(models.comments, {
+            foreignKey: 'userId',
+            as: 'Comments',
         })
     };
     return users;

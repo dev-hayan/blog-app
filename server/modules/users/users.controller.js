@@ -1,7 +1,5 @@
-const db = require("../../models/index");
 const { getUsers, findUserByEmail, createUser, findUserById } = require("../../services/user_service");
 const { validateUsers } = require("../../utils/request_validations");
-const Users = db.users;
 
 
 // ------------------------------------------------Get All Users----------------------------------------------------
@@ -19,7 +17,6 @@ exports.createUser = async (req, res) => {
     const { error } = validateUsers(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    console.log("Joi error")
     const { email, firstName, lastName, password } = req.body;
     let newUser = await findUserByEmail(email);
     if (newUser) return res.status(400).send("User already exists");

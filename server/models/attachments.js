@@ -7,13 +7,13 @@ module.exports = (sequelize, DataTypes) => {
         },
         attachmenTableId: DataTypes.INTEGER,
         attachmenTableType: DataTypes.STRING
-    }, { timestamps: false });
+    }, { timestamps: false })
     attachments.associate = function (models) {
-        attachments.belongsTo(models.posts, { foreignKey: 'attachmenTableId', constraints: false });
-        attachments.belongsTo(models.comments, { foreignKey: 'attachmenTableId', constraints: false });
-    };
+        attachments.belongsTo(models.posts, { foreignKey: 'attachmenTableId', constraints: false })
+        attachments.belongsTo(models.comments, { foreignKey: 'attachmenTableId', constraints: false })
+    }
 
-    return attachments;
+    return attachments
 }
 
 

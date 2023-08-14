@@ -1,20 +1,19 @@
-const { findPostById } = require("../../services/post_service");
-const { createSuggestions, findUserPostSuggestions } = require("../../services/suggestions_service");
-const { findUserById } = require("../../services/user_service");
-const { valiadateSuggestion } = require("../../utils/request_validations");
+const { findPostById } = require("../../services/post_service")
+const { createSuggestions, findUserPostSuggestions } = require("../../services/suggestions_service")
+const { findUserById } = require("../../services/user_service")
+const { valiadateSuggestion } = require("../../utils/request_validations")
 
 exports.createSuggestion = async (req, res) => {
-    console.log(req.body)
-    const { error } = valiadateSuggestion(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    const { error } = valiadateSuggestion(req.body)
+    if (error) return res.status(400).send(error.details[0].message)
 
-    const { content, userId, postId } = req.body;
-    const user = await findUserById(userId);
+    const { content, userId, postId } = req.body
+    const user = await findUserById(userId)
     if (!user)
-        return res.status(404).send("User not found.");
-    const post = await findPostById(postId);
+        return res.status(404).send("User not found.")
+    const post = await findPostById(postId)
     if (!post)
-        return res.status(404).send("Post not found.");
+        return res.status(404).send("Post not found.")
 
     try {
         const suggestion = await createSuggestions({ content, userId, postId, post_user_id: post.userId })
@@ -25,12 +24,12 @@ exports.createSuggestion = async (req, res) => {
 }
 
 exports.getPostSuggestions = async (req, res) => {
-    const post = await findPostById(req.params.id);
+    const post = await findPostById(req.params.id)
     if (!post)
-        return res.status(404).send("Post not found.");
+        return res.status(404).send("Post not found.")
 
     try {
-        const suggestions = await post.PostSuggestions();
+        const suggestions = await post.PostSuggestions()
         return res.status(200).send(suggestions)
     } catch (error) {
         return res.status(400).send(error.message)
@@ -39,12 +38,11 @@ exports.getPostSuggestions = async (req, res) => {
 }
 
 exports.getUserSuggestions = async (req, res) => {
-    console.log("called")
-    const user = await findUserById(req.params.id);
+    const user = await findUserById(req.params.id)
     if (!user)
-        return res.status(404).send("User not found.");
+        return res.status(404).send("User not found.")
     try {
-        const suggestions = await user.getUserSuggestions();
+        const suggestions = await user.getUserSuggestions()
         res.status(200).send(suggestions)
     } catch (error) {
         return res.status(400).send(error.message)
@@ -61,14 +59,13 @@ exports.getUserPostSuggestion = async (req, res) => {
 }
 
 exports.deletePostSuggestion = async (req, res) => {
-    const post = await findPostById(req.params.id);
-    console.log(post)
-    if (!post) return res.status(400).send("Post not found");
+    const post = await findPostById(req.params.id)
+    if (!post) return res.status(400).send("Post not found")
 
     try {
         await post.removePostSuggestions()
         return res.status(200).send("Attachments deleted")
     } catch (error) {
-        return res.status(400).send(error.message);
+        return res.status(400).send(error.message)
     }
 }

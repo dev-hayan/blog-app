@@ -1,15 +1,16 @@
 const express = require('express')
 const { createPost, deletePost, likePost, reportPost, approvePost } = require('./posts.controller')
 const { uploader } = require("../../config/cloudinary.config")
-
+const auth = require('../../middlewares/auth')
+const isModerator = require("../../middlewares/moderator")
 const router = express.Router()
 
 
 
-router.post("/", uploader.array("files", 10), createPost);
-router.patch("/:id/like", likePost)
-router.patch("/:id/report", reportPost)
-router.patch("/:id/approve", approvePost)
-router.delete("/:id", deletePost)
+router.post("/", uploader.array("files", 10), createPost)
+router.patch("/:id/like", auth, likePost)
+router.patch("/:id/report", auth, reportPost)
+router.patch("/:id/approve", auth, isModerator, approvePost)
+router.delete("/:id",auth, deletePost)
 
-module.exports = router;
+module.exports = router

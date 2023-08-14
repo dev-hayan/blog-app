@@ -17,25 +17,25 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             defaultValue: 0,
         },
-    }, { timestamps: false });
+    }, { timestamps: false })
 
     posts.associate = function (models) {
         posts.belongsTo(models.users, {
             foreignKey: 'userId',
             onDelete: 'CASCADE'
         })
-        posts.hasMany(models.comments, { as: 'Comments', foreignKey: 'postId', onDelete: 'CASCADE' });
-        posts.hasMany(models.suggestions, { as: 'PostSuggestions', foreignKey: 'postId', onDelete: 'CASCADE' });
+        posts.hasMany(models.comments, { as: 'Comments', foreignKey: 'postId', onDelete: 'CASCADE' })
+        posts.hasMany(models.suggestions, { as: 'PostSuggestions', foreignKey: 'postId', onDelete: 'CASCADE' })
         posts.hasMany(models.attachments, {
             foreignKey: 'attachmenTableId',
             constraints: false,
             scope: {
                 commentableType: 'post'
             },
-        });
-    };
+        })
+    }
 
-    return posts;
+    return posts
 }
 
 

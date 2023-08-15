@@ -7,7 +7,7 @@ const auth = require("../modules/authentication/router")
 
 
 module.exports = function (app) {
-    app.use('/api/auth',auth)
+    app.use('/api/login',auth)
     app.use("/api/users", user)
     app.use("/api/posts", post)
     app.use("/api/comments", comment)

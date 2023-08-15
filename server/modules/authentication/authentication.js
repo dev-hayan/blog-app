@@ -10,8 +10,31 @@ exports.authenticateUser = async (req, res) => {
     let user = await findUserByEmail(email)
     if (!user) return res.status(400).send("Invalid email or password")
 
+    if (user.isLoginDisabled) {
+        const now = new Date();
+        if (user.disableLoginUntil > now) {
+            const minutesRemaining = Math.ceil((user.disableLoginUntil - now) / (1000 * 60));
+            return res.status(400).send(`Login is disabled. Try again in ${minutesRemaining} minutes.`);
+        } else {
+            user.isLoginDisabled = false;
+            
+            user.loginAttempts = 0;
+        }
+    }
     const authResult = await bcrypt.compare(password, user.password)
-    if (!authResult) return res.status(400).send("Invalid email or password")
+    if (!authResult) {
+        user.loginAttempts += 1;
+        if (user.loginAttempts >= 5) {
+            const now = new Date();
+            user.isLoginDisabled = true;
+            user.disableLoginUntil = new Date(now.getTime() + 5 * 60 * 1000); // 5 minutes from now
+        }
+        await user.save();
+        return res.status(400).send("Invalid email or password")
+    }
+
+    user.loginAttempts = 0;
+    await user.save();
 
     const token = user.genAuthToken()
     return res.status(200).send(token)

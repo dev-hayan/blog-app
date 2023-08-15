@@ -1,5 +1,8 @@
 const { getUsers, findUserByEmail, createUser, findUserById } = require("../../services/user_service")
 const { validateUsers } = require("../../utils/request_validations")
+const jwt = require('jsonwebtoken');
+const transporter = require('../../config/transport.config');
+require("dotenv").config()
 
 
 // ------------------------------------------------Get All Users----------------------------------------------------
@@ -22,10 +25,42 @@ exports.createUser = async (req, res) => {
     if (newUser) return res.status(400).send("User already exists")
 
     try {
+        const confirmationToken = jwt.sign({ email }, process.env.JWT_PRIVATE_KEY);
+
+        const confirmationLink = `http://localhost:5000/api/users/confirm/${confirmationToken}`; // Replace with your frontend URL
+        const mailOptions = {
+            from: 'abdulhayan1220@gmail.com',
+            to: email,
+            subject: 'Confirm Email',
+            html: `Click <a href="${confirmationLink}">here</a> to confirm your email.`,
+        };
         newUser = await createUser({ email, firstName, lastName, password, isAdmin: false, isModerator: false })
+        transporter.sendMail(mailOptions, function (err, info) {
+            if (err)
+                console.log(err)
+            else
+                console.log(info);
+        });
         return res.status(200).send(newUser)
     } catch (error) {
         return res.status(400).send(error.message)
+    }
+}
+
+exports.confirmEmail = async (req, res) => {
+    const token = req.params.token;
+    try {
+        const { email } = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
+        const user = await findUserByEmail(email);
+        if (!user) throw new Error('User not found');
+
+        // Update user's email confirmation status in the database
+        user.isEmailConfirmed = true;
+        await user.save();
+
+        res.status(200).send('Email confirmed successfully.');
+    } catch (error) {
+        res.status(400).send('Invalid or expired token.');
     }
 }
 

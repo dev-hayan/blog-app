@@ -7,7 +7,6 @@ exports.authenticateUser = async (req, res) => {
     if (error) return res.status(400).send(error.details[0].message)
 
     const { email, password } = req.body
-    console.log('ki hall a: ', email)
     let user = await findUserByEmail(email)
     if (!user) return res.status(400).send("Invalid email or password")
 

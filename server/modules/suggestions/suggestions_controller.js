@@ -1,5 +1,5 @@
 const { findPostById } = require("../../services/post_service")
-const { createSuggestions, findUserPostSuggestions } = require("../../services/suggestions_service")
+const { createSuggestions, findUserPostSuggestions, findSuggestion } = require("../../services/suggestions_service")
 const { findUserById } = require("../../services/user_service")
 const { valiadateSuggestion } = require("../../utils/request_validations")
 
@@ -65,6 +65,20 @@ exports.deletePostSuggestion = async (req, res) => {
     try {
         await post.removePostSuggestions()
         return res.status(200).send("Attachments deleted")
+    } catch (error) {
+        return res.status(400).send(error.message)
+    }
+}
+
+
+exports.rejcetSuggestion = async (req, res) => {
+    let suggestion = await findSuggestion(req.params.id)
+    if (!suggestion) return res.status(400).send("Suggestion not found")
+
+    try {
+        suggestion.rejected = true 
+        suggestion = await suggestion.save()
+        return res.status(200).send(suggestion)
     } catch (error) {
         return res.status(400).send(error.message)
     }

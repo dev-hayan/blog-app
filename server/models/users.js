@@ -48,7 +48,18 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BOOLEAN,
             allowNull: false,
             defaultValue: false,
-        }
+        },
+        isEmailConfirmed: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false,
+        },
+        loginAttempts: { type: DataTypes.INTEGER, defaultValue: 0 },
+        isLoginDisabled: { type: DataTypes.BOOLEAN, defaultValue: false },
+        disableLoginUntil: {
+            type: DataTypes.DATE,
+        },
+
     }, {
         timestamps: false,
         hooks: {

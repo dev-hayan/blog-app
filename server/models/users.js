@@ -1,5 +1,7 @@
 const { validateEmail } = require("../utils/helper");
 const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
 
 
 module.exports = (sequelize, DataTypes) => {
@@ -78,6 +80,14 @@ module.exports = (sequelize, DataTypes) => {
             as: 'Comments',
         })
     };
+
+    users.prototype.genAuthToken = function () {
+        const token = jwt.sign(
+            { _id: this._id, isAdmin: this.isAdmin, isModerator: this.isModerator },
+            process.env.JWT_PRIVATE_KEY
+        );
+        return token;
+    }
     return users;
 }
 

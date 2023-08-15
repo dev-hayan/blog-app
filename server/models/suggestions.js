@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         }
-    }, { timestamps: false });
+    }, { timestamps: false })
     suggestions.associate = function (models) {
         suggestions.belongsTo(models.posts, { foreignKey: 'postId', onDelete: 'CASCADE' })
         suggestions.belongsTo(models.users, {
@@ -24,6 +24,6 @@ module.exports = (sequelize, DataTypes) => {
             onDelete: 'CASCADE'
         })
 
-    };
-    return suggestions;
+    }
+    return suggestions
 }

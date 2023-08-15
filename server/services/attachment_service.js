@@ -1,19 +1,19 @@
-const db = require("../models/index");
-const Attachments = db.attachments;
+const db = require("../models/index")
+const Attachments = db.attachments
 
 async function addAttachment(url, id, type) {
     const attachment = await Attachments.create({
         url,
         attachmenTableId: id,
         attachmenTableType: type
-    });
+    })
 
-    return attachment;
+    return attachment
 }
 
 
 async function addMultiAttachments(attachments) {
-    return await Attachments.bulkCreate(attachments);
+    return await Attachments.bulkCreate(attachments)
 }
 
 async function deleteAttachments(id, type) {

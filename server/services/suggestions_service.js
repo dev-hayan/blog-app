@@ -1,5 +1,5 @@
-const db = require("../models/index");
-const Suggestions = db.suggestions;
+const db = require("../models/index")
+const Suggestions = db.suggestions
 
 async function createSuggestions(suggestion) {
     return await Suggestions.create(suggestion)
@@ -7,7 +7,7 @@ async function createSuggestions(suggestion) {
 }
 
 async function findSuggestion(id) {
-    return await Suggestions.findByPk(id);
+    return await Suggestions.findByPk(id)
 }
 
 async function findUserPostSuggestions(id) {

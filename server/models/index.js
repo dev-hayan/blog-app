@@ -3,9 +3,9 @@
 const fs = require('fs')
 const path = require('path')
 const dbConfig = require("../config/db.config")
-const { Sequelize } = require('sequelize');
+const { Sequelize } = require('sequelize')
 const basename = path.basename(__filename)
-const db = {};
+const db = {}
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     host: dbConfig.HOST,
@@ -17,7 +17,7 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
         acquire: dbConfig.pool.acquire,
         idle: dbConfig.pool.idle
     }
-});
+})
 
 fs
     .readdirSync(__dirname)
@@ -36,7 +36,7 @@ Object.keys(db).forEach(modelName => {
 })
 
 
-db.Sequelize = Sequelize;
-db.sequelize = sequelize;
+db.Sequelize = Sequelize
+db.sequelize = sequelize
 
-module.exports = db;
+module.exports = db

@@ -9,14 +9,14 @@ function validateUsers(user) {
         password: Joi.string().required(),
     })
 
-    return schema.validate(user);
+    return schema.validate(user)
 }
 function validatePosts(post) {
     const schema = Joi.object({
         content: Joi.string().required(),
         userId: Joi.number().required(),
     })
-    return schema.validate(post);
+    return schema.validate(post)
 }
 
 function valiadateComment(comment) {
@@ -26,7 +26,7 @@ function valiadateComment(comment) {
         postId: Joi.number().required(),
         parentCommentId: Joi.number(),
     })
-    return schema.validate(comment);
+    return schema.validate(comment)
 }
 
 function valiadateSuggestion(suggestion) {
@@ -35,7 +35,17 @@ function valiadateSuggestion(suggestion) {
         userId: Joi.number().required(),
         postId: Joi.number().required(),
     })
-    return schema.validate(suggestion);
+    return schema.validate(suggestion)
 }
 
-module.exports = { validateUsers, validatePosts, valiadateComment, valiadateSuggestion }
+function validateAuthReq(request) {
+    const schema = Joi.object({
+        email: Joi.string()
+            .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+        password: Joi.string().required(),
+    })
+
+    return schema.validate(request)
+}
+
+module.exports = { validateUsers, validatePosts, valiadateComment, valiadateSuggestion,validateAuthReq }

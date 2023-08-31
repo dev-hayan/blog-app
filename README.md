@@ -75,8 +75,6 @@ Moderators have additional responsibilities:
 
 ## Admin Section
 
-The app incorporates RailsAdmin to create a comprehensive admin section:
-
 - Admins have the ability to manage users, posts, comments, likes, reports, and suggestions through an intuitive interface.
 
 ---

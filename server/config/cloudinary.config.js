@@ -1,4 +1,3 @@
-const multer = require("multer")
 const cloudinary = require('cloudinary')
 require('dotenv').config()
 
@@ -8,9 +7,6 @@ cloudinary.config({
     api_secret: process.env.API_SECRET,
 })
 
-const uploader = multer({
-    storage: multer.diskStorage({}),
-    limits: { fileSize: 500000 }
-})
 
-module.exports = { cloudinary, uploader }
+
+module.exports = cloudinary 

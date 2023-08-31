@@ -1,0 +1,12 @@
+.file-upload-icon {
+  display: inline-block;
+  cursor: pointer;
+  padding: 10px;
+  border: 1px dashed #ccc;
+  border-radius: 5px;
+  cursor: "pointer";
+}
+
+.file-upload-icon > label {
+  cursor: pointer;
+}

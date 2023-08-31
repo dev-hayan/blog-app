@@ -1,0 +1,13 @@
+
+
+.replies {
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.comment-body {
+  width: 27em;
+  border: none;
+  background-color: black;
+  border-radius: 18px;
+}

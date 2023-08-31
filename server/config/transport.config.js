@@ -1,15 +1,14 @@
-const nodemailer = require('nodemailer'); // For sending confirmation emails
-
-
 const smtpConfig = {
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: process.env.SMTP_SECURE,
     auth: {
-        user: 'abdul.hayan@devsinc.com',
-        pass: 'xfbifwehhrxuciwj'
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+    },
+    tls: {
+        ciphers: process.env.SMTP_CIPHERS
     }
 };
-const transporter = nodemailer.createTransport(smtpConfig);
 
-module.exports = transporter;
+module.exports = smtpConfig;

@@ -1,0 +1,10 @@
+.no-comments {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: inherit;
+}
+
+.replies {
+  font-size: 13px;
+}

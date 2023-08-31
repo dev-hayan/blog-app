@@ -1,13 +1,207 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: auto;
+  box-sizing: border-box;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.main {
+  height: 94vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* max-width: 1280px; */
+  margin: auto;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.d-flex {
+  gap: 10px;
+}
+
+.content-screen {
+  height: 94vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.screen-width {
+  max-width: 1280px;
+  margin: auto;
+}
+
+.form-layout {
+  border-radius: 10px;
+}
+
+.input {
+  background-color: #242b38 !important;
+  color: white !important;
+}
+
+.input:focus {
+  color: white !important;
+}
+
+.input::placeholder {
+  color: white !important;
+}
+
+.post-section {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  padding-right: 17px;
+  /* Increase/decrease this value for cross-browser compatibility */
+  box-sizing: content-box;
+}
+
+.post-parent {
+  height: 94vh;
+  overflow: hidden;
+  width: 58%;
+}
+
+.post-suggestion {
+  overflow: hidden;
+  max-height: 94vh;
+  height: fit-content;
+  width: 31%;
+}
+.sigup-login-container {
+  height: 100%;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.post-content {
+  font-size: 1rem;
+  padding: 0.5em;
+}
+
+.comment-section {
+  height: 12em;
+  overflow: hidden;
+}
+
+.comment-input {
+  background-color: #212529;
+  border: none;
+}
+
+.comment-input:focus {
+  outline: none;
+}
+
+.image-container {
+  text-align: center;
+}
+
+.image-container img {
+  width: 90%;
+  height: auto;
+  margin: 0.3rem;
+}
+
+.post-icons {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(245, 222, 179, 0.219);
+}
+
+.suggest-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.219);
+}
+
+.icon {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.icon i {
+  margin-right: 0.35rem;
+}
+
+.modal {
+  --bs-modal-width: 888px !important;
+}
+.inner-comment-section {
+  width: 100%;
+  height: 72%;
+  overflow-y: scroll;
+  padding-right: 17px;
+  /* Increase/decrease this value for cross-browser compatibility */
+  box-sizing: content-box;
+}
+
+.report-badge {
+  left: 90% !important;
+}
+
+.badges-top {
+  top: 84% !important;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.User {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+
+#suggestion-body > p {
+  margin: 0;
 }
